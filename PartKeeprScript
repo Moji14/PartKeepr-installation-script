@@ -1,0 +1,94 @@
+#!/bin/bash
+
+# Copyright (c) 2021 Mohamed Lanjri El Halimi. All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# This bash script will automatize PartKeepr installation on Ubuntu 16.04
+# running on a virtual machine (AWS free tier instance in this case).
+
+
+# Go user diretory 
+cd
+
+# Server update and upgrade after EC2 instance creation
+sudo apt-get update -y
+sudo apt-get upgrade -y
+
+# System will reboot message and reboot command
+#****************************************************************************************************
+print "System will reboot now, please SSH connect again after a prudent wait"
+sudo shutdown -r 0 #There's a problem here the script will not continue because system has restarted
+#Ask google how to run script reboot and continue where it left when rebooting.**************************************
+
+
+# Install tasksel to perform automated LAMP server installation
+sudo apt-get install tasksel
+
+# Execute LAMP server automated installation
+sudo tasksel install lamp-server
+
+# Automated MySQL installation/configuration
+#****************************************************************************************************
+mysql_secure_installation atutomated method
+
+# Here we need to make a MySQL script to automatize the dabase creation and conf>
+#***************************************************************************************************
+MySQL database creation script
+
+# PHP installation verification (not necesary, but recommended for better script)
+#***************************************************************************************************
+#sudo nano /var/www/html/phpinfo.php
+
+# PHP required extensions installation
+sudo apt-get install php-curl php-ldap php-bcmath php-gd php-dom
+
+# PartKeepr files downloads and extraction(decompression)
+wget https://downloads.partkeepr.org/partkeepr-1.4.0.tbz2
+sudo tar -xjvf partkeepr-1.4.0.tbz2 -C /var/www
+
+# This step can be skiped (not necesary but recommended for better script)
+# cat /etc/passwd | grep www
+
+# Directory permissions modifications
+sudo chown -R $(whoami):www-data /var/www/partkeepr-1.4.0
+sudo find /var/www/partkeepr-1.4.0 -type d -exec chmod 770 {} +
+sudo find /var/www/partkeepr-1.4.0 -type f -exec chmod 660 {} +
+sudo a2enmod userdir rewrite
+
+# Apache server configurations
+# On the script I have to options, edit the file or replace the file on the next
+#*****************************************************************************************************
+sudo nano /etc/apache2/apache2.conf
+sudo nano /etc/apache2/sites-available/000-default.conf
+sudo nano /etc/apache2/sites-available/default-ssl.conf
+
+#PHP configuration
+#****************************************************************************************************
+sudo nano /etc/php/7.0/apache2/php.ini
+
+#Apache server restart
+sudo service apache2 restart
+
+#Automatize it to keep waiting until authkey.php is created so the user can copy the key
+#from the command window
+#******************************************************************************************************
+sudo nano /var/www/partkeepr-1.4.0/app/authkey.php
+
+#Edit que cron.d file (echo didn't work check why not)
+#******************************************************************************************************
+sudo nano /etc/cron.d/partkeepr
+
+#Remove the donwloaded PartKeepr file (ask with a reconmedation).
+sudo rm partkeepr-1.4.0.tbz2
+
+# Print installation end message.
+
+print "Installation finished, enjoy you inventory management software!"

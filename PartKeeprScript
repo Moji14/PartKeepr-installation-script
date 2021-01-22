@@ -36,15 +36,14 @@ sudo apt-get install tasksel
 sudo tasksel install lamp-server
 
 # Automated MySQL installation/configuration
-#****************************************************************************************************
-mysql_secure_installation atutomated method
+mysql_secure_installation
 
 # Here we need to make a MySQL script to automatize the dabase creation and conf>
 #***************************************************************************************************
 MySQL database creation script
 
 # PHP installation verification (not necesary, but recommended for better script)
-#***************************************************************************************************
+# Need to create the phpinfo.php file
 #sudo nano /var/www/html/phpinfo.php
 
 # PHP required extensions installation
@@ -54,7 +53,7 @@ sudo apt-get install php-curl php-ldap php-bcmath php-gd php-dom
 wget https://downloads.partkeepr.org/partkeepr-1.4.0.tbz2
 sudo tar -xjvf partkeepr-1.4.0.tbz2 -C /var/www
 
-# This step can be skiped (not necesary but recommended for better script)
+# Check the www group to modifiy directory premissions. This step can be skiped (not necesary but recommended for better script)
 # cat /etc/passwd | grep www
 
 # Directory permissions modifications
@@ -63,19 +62,23 @@ sudo find /var/www/partkeepr-1.4.0 -type d -exec chmod 770 {} +
 sudo find /var/www/partkeepr-1.4.0 -type f -exec chmod 660 {} +
 sudo a2enmod userdir rewrite
 
-# Apache server configurations
-# On the script I have to options, edit the file or replace the file on the next
-#*****************************************************************************************************
-sudo nano /etc/apache2/apache2.conf
-sudo nano /etc/apache2/sites-available/000-default.conf
-sudo nano /etc/apache2/sites-available/default-ssl.conf
+# Set Apache server and PHP configurations by relocating them from the files already downloared from my repository on GitHub
+# Create backup copies of the files that needed to be configured
+sudo mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.bak
+sudo mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
+sudo mv /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf.bak
+sudo mv /etc/php/7.0/apache2/php.ini /etc/php/7.0/apache2/php.ini.bak
 
-#PHP configuration
-#****************************************************************************************************
-sudo nano /etc/php/7.0/apache2/php.ini
+#Move files from the cloned repository directory to it's final destinations
+sudo mv ~/PartKeepr-installation-script/apache2.conf /etc/apache2/apache2.conf.bak
+sudo mv ~/PartKeepr-installation-script/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
+sudo mv ~/PartKeepr-installation-script/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf.bak
+sudo mv ~/PartKeepr-installation-script/php.ini /etc/php/7.0/apache2/php.ini.bak
 
 #Apache server restart
 sudo service apache2 restart
+
+#Indicate user to prepare to do the on-website configuration steps and then prepare launch a web browser
 
 #Automatize it to keep waiting until authkey.php is created so the user can copy the key
 #from the command window

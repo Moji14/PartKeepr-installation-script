@@ -101,10 +101,10 @@ else
 	sudo mv /etc/php/7.0/apache2/php.ini /etc/php/7.0/apache2/php.ini.bak
 
 	#Move files from the cloned repository directory to it's final destinations
-	sudo mv ~/PartKeepr-installation-script/apache2.conf /etc/apache2/apache2.conf.bak
-	sudo mv ~/PartKeepr-installation-script/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
-	sudo mv ~/PartKeepr-installation-script/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf.bak
-	sudo mv ~/PartKeepr-installation-script/php.ini /etc/php/7.0/apache2/php.ini.bak
+	sudo mv ~/PartKeepr-installation-script/apache2.conf /etc/apache2/apache2.conf
+	sudo mv ~/PartKeepr-installation-script/000-default.conf /etc/apache2/sites-available/000-default.conf
+	sudo mv ~/PartKeepr-installation-script/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
+	sudo mv ~/PartKeepr-installation-script/php.ini /etc/php/7.0/apache2/php.ini
 
 	#Apache server restart
 	sudo service apache2 restart

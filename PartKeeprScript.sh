@@ -114,7 +114,7 @@ else
 
 	# Copy they key from authkey.php to the website installer
 	echo "Plase paste this key and paste it on the the PartKeepr web installer"
-	sudo echo "$key" >> /var/www/partkeepr-1.4.0/app/authkey.php
+	sudo cat /var/www/partkeepr-1.4.0/app/authkey.php
 
 	#Move cron.d file
 	sudo mv ~/PartKeepr-installation-script/partkeepr /etc/cron.d/partkeepr

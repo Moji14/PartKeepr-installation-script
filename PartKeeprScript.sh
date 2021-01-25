@@ -47,7 +47,7 @@ else
         # Continue with rest of the script needed to be done after reboot
 
        	# Install tasksel to perform automated LAMP server installation
-	sudo apt-get install tasksel
+	sudo apt-get install tasksel -y
 
 	# Execute LAMP server automated installation
 	sudo tasksel install lamp-server

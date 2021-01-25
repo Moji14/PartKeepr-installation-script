@@ -78,7 +78,7 @@ else
 	#sudo nano /var/www/html/phpinfo.php
 
 	# PHP required extensions installation
-	sudo apt-get install php-curl php-ldap php-bcmath php-gd php-dom
+	sudo apt-get install php-curl php-ldap php-bcmath php-gd php-dom -y
 
 	# PartKeepr files downloads and extraction(decompression)
 	wget https://downloads.partkeepr.org/partkeepr-1.4.0.tbz2

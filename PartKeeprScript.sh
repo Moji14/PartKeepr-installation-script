@@ -110,10 +110,11 @@ else
 	sudo service apache2 restart
 
 	#Indicate user to prepare to do the on-website configuration steps and then prepare launch a web browser
-	echo "Plase open the brouser and insert the next url 'yoururl.com/setup' and follow the steps"
-
+	echo "Please, open your web brouser and insert the next url 'your_domain_or_IP.com/setup' and follow the installation steps"
+	echo "Once you get to the third step, press enter and copy the key that you has been asked for."
+	read
 	# Copy they key from authkey.php to the website installer
-	echo "Plase paste this key and paste it on the the PartKeepr web installer"
+	echo "Plase copy this key and paste it on the the PartKeepr web installer"
 	sudo cat /var/www/partkeepr-1.4.0/app/authkey.php
 
 	#Move cron.d file
